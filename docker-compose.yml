@@ -1,0 +1,4 @@
+networks:
+  web-net: { driver: bridge, ipam: { config: [ { subnet: 172.20.11.0/24 } ] } }
+  was-net: { driver: bridge, ipam: { config: [ { subnet: 172.20.12.0/24 } ] } }
+  db-net: { driver: bridge, ipam: { config: [ { subnet: 172.20.13.0/24 } ] } }
