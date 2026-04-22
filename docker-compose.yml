@@ -15,6 +15,24 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+  db-replica:
+    image: mysql:8.0
+    container_name: db-replica
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./db/replica/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - db-replica-data:/var/lib/mysql
+    networks:
+      - db-net
+    depends_on:
+      db-master:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$$MYSQL_ROOT_PASSWORD" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 networks:
   web-net: { driver: bridge, ipam: { config: [ { subnet: 172.20.11.0/24 } ] } }
@@ -23,3 +41,4 @@ networks:
 
 volumes:
   db-master-data:
+  db-replica-data:
