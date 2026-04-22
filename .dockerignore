@@ -1,0 +1,12 @@
+.git
+.gitmodules
+db/
+dns/
+web-lb/
+web/
+scripts/
+docs/
+.env
+.env.example
+README.md
+*.md
