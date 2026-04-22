@@ -6,6 +6,7 @@ services:
     env_file: .env
     volumes:
       - ./db/master/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./db/master/init-master.sh:/docker-entrypoint-initdb.d/init-master.sh:ro
       - db-master-data:/var/lib/mysql
     networks:
       - db-net
